@@ -101,7 +101,7 @@ export default function Home() {
               <span>144 Today</span>
             </div>
           </section>
-          <h2>Overview - Today</h2>
+          <h2 className={styles.subtitle}>Overview - Today</h2>
           <section className={styles.overview}>
             <div className={styles.row}>
               <div className={styles.card}>

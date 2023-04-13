@@ -110,7 +110,9 @@ input:checked + .slider::before {
   justify-content: space-between;
   gap: 20px;
   width: 100%;
-  height: 230px;
+  height: max-content;
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .followers .card {
@@ -228,7 +230,7 @@ main.light .followers .card:hover {
   border-radius: 5px;
   margin-top: 30px;
   gap: 20px;
-  height: 100px;
+  height: max-content;
 }
 
 .overview .card {
@@ -316,4 +318,57 @@ main.dark .overview .card div:first-child span:first-child {
 .overview .row:last-child .card:nth-child(3) div:last-child span:last-child::before,
 .overview .row:last-child .card:nth-child(4) div:last-child span:last-child::before  {
   background-image: url("../public/icon-down.svg");
+}
+
+@media screen and (770px < width <= 1020px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header div:last-child {
+    border-top: 1px solid #373a4d;
+    padding-top: 20px;
+    margin-top: 30px;
+    width: 100%;
+  }
+  .followers {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .overview,
+  .row {
+    flex-wrap: wrap;
+    justify-content: center !important;
+  }
+  .card {
+    flex: 40%;
+  }
+}
+
+@media screen and (width <= 770px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .header div:last-child {
+    border-top: 1px solid #373a4d;
+    padding-top: 20px;
+    margin-top: 30px;
+    width: 100%;
+  }
+  .followers {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .overview,
+  .row {
+    flex-wrap: wrap;
+    justify-content: center !important;
+  }
+  .card {
+    flex: 100%;
+  }
+  .subtitle {
+    font-size: 15px;
+  }
 }
