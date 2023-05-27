@@ -1,13 +1,45 @@
 import Head from "next/head";
 import Image from "next/image";
+import Cookies from "js-cookie";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import CryptoJS from "crypto-js";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const secretKey =
+    "03dca885a276a3715862fc1c8c0785bb8c9b926e4eb7645733f73bf7763fae21";
+
   const [theme, setTheme] = useState(false);
+  const mounted = useRef(false);
+  const checkboxRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    const savedTheme = Cookies.get("theme");
+    if (savedTheme) {
+      const decryptedData = CryptoJS.AES.decrypt(
+        savedTheme,
+        secretKey
+      ).toString(CryptoJS.enc.Utf8);
+      setTheme(decryptedData === "true");
+      if (checkboxRef.current) {
+        checkboxRef.current.checked = decryptedData === "true";
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    if (mounted.current) {
+      Cookies.set(
+        "theme",
+        CryptoJS.AES.encrypt(theme.toString(), secretKey).toString()
+      );
+    } else {
+      mounted.current = true;
+    }
+  }, [theme]);
   return (
     <>
       <Head>
@@ -37,6 +69,7 @@ export default function Home() {
                 <input
                   type="checkbox"
                   onChange={(e) => setTheme(e.target.checked)}
+                  ref={checkboxRef}
                 />
                 <span className={styles.slider}></span>
               </label>
