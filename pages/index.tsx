@@ -3,7 +3,7 @@ import Image from "next/image";
 import Cookies from "js-cookie";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useLayoutEffect } from "react";
 import CryptoJS from "crypto-js";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -16,7 +16,7 @@ export default function Home() {
   const mounted = useRef(false);
   const checkboxRef = useRef<HTMLInputElement>(null);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const savedTheme = Cookies.get("theme");
     if (savedTheme) {
       const decryptedData = CryptoJS.AES.decrypt(
